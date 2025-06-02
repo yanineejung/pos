@@ -1,0 +1,68 @@
+/* 📌 Base Styles (applied to all screen sizes) */
+
+.product-card-container {
+  background-color: var(--neutral-100);
+  border: 1px solid var(--green-200);
+  border-radius: 32px;
+  padding: 16px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.image-container {
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 8px;
+  justify-self: center;
+  margin-bottom: 8px;
+}
+
+.add-cart-btn {
+  background-color: var(--neutral-650);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: flex-end;
+  transition: background-color 0.3s ease;
+}
+
+.add-cart-btn:hover {
+  background-color: var(--green-400);
+}
+
+.add-cart-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .product-card-container {
+    width: 180px;
+    height: 280px;
+  }
+
+  .add-cart-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+  }
+}
+
+/* POS or Desktop styles */
+@media (min-width: 769px) {
+  .product-card-container {
+    width: 380px;
+    height: 480px;
+  }
+
+  .add-cart-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+}

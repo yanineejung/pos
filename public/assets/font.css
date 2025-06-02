@@ -1,0 +1,80 @@
+/* NotoSansThai-Thin */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-Thin.ttf") format("truetype");
+  font-weight: 100; /* Thin */
+  font-style: normal;
+  font-display: swap; /* Recommended for better user experience */
+}
+
+/* NotoSansThai-ExtraLight */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-ExtraLight.ttf") format("truetype");
+  font-weight: 200; /* Extra Light */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NotoSansThai-Light */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-Light.ttf") format("truetype");
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NotoSansThai-Regular */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-Regular.ttf") format("truetype");
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NotoSansThai-Medium */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-Medium.ttf") format("truetype");
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NotoSansThai-SemiBold */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-SemiBold.ttf") format("truetype");
+  font-weight: 600; /* SemiBold */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NotoSansThai-Bold */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-Bold.ttf") format("truetype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NotoSansThai-ExtraBold */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-ExtraBold.ttf") format("truetype");
+  font-weight: 800; /* Extra Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NotoSansThai-Black */
+@font-face {
+  font-family: "NotoSansThai";
+  src: url("../fonts/NotoSansThai-Black.ttf") format("truetype");
+  font-weight: 900; /* Black */
+  font-style: normal;
+  font-display: swap;
+}

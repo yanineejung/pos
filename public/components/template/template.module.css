@@ -1,0 +1,20 @@
+.product-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.checkout-container {
+  background-color: var(--neutral-100);
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+}
+
+.date-text {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+}

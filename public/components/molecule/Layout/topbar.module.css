@@ -1,0 +1,20 @@
+.container {
+  /* display: flex; */
+  background-color: var(--green-400);
+  width: 100%;
+}
+
+.logo {
+  aspect-ratio: 1/1;
+  height: 36px;
+  margin: 5px 32px;
+  border-radius: 4px;
+}
+
+.avatar {
+  aspect-ratio: 1/1;
+  height: 36px;
+  margin: 5px 32px;
+  border-radius: 32px;
+  float: right;
+}

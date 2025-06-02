@@ -1,0 +1,8 @@
+.container {
+  background-color: var(--purple-100);
+  border-radius: 8px;
+  width: fit-content;
+  padding: 4px 8px;
+  font-family: NotoSansThai;
+  font-size: 12px;
+}

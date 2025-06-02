@@ -1,0 +1,24 @@
+.page {
+  background-color: var(--green-100);
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .product-section {
+    width: 100%;
+  }
+  .checkout-section {
+    width: 100%;
+  }
+}
+@media (min-width: 769px) {
+  .page {
+    display: flex;
+    /* justify-items: center; */
+  }
+  .product-section {
+  }
+  .checkout-section {
+    min-width: 700px;
+  }
+}

@@ -1,0 +1,42 @@
+:root {
+  /* Neutrals */
+  --neutral-100: #ffffff;
+  --neutral-200: #f2f2f2;
+  --neutral-300: #d8d8d8;
+  --neutral-400: #b2b2b2;
+  --neutral-500: #7f7f7f;
+  --neutral-600: #4c4c4c;
+  --neutral-650: #191919;
+  --neutral-700: #000000;
+
+  /* GREEN */
+  --green-100: #e6f8f5;
+  --green-200: #ccede1;
+  --green-300: #74c9bb;
+  --green-400: #00a69c;
+  --green-500: #00847c;
+  --green-600: #004f3e;
+  --green-700: #00332e;
+
+  /* PURPLE */
+  --purple-100: #eae8f6;
+  --purple-200: #d6ccee;
+  --purple-300: #774dc6;
+  --purple-400: #5310a6;
+  --purple-500: #2a008b;
+  --purple-600: #150045;
+  --purple-700: #0f0034;
+
+  /* RED */
+  --red-100: #fccebb;
+  --red-200: #f9b0b1;
+  --red-300: #ea5f5f;
+  --red-400: #e11b1b;
+  --red-500: #b41815;
+  --red-600: #5a0a0a;
+  --red-700: #430b0b;
+
+  /* Semantic Colors */
+  --color-success: #28a745;
+  --color-error: #dc3545;
+}

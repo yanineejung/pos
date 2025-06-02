@@ -1,0 +1,23 @@
+.product-name-text {
+  font-family: NotoSansThai;
+  font-weight: 700;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-id-text {
+  font-family: NotoSansThai;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--neutral-500);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-price-text {
+  font-weight: 600;
+  text-align: end;
+}

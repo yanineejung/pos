@@ -1,0 +1,22 @@
+.editable-item-container {
+  min-width: 600px;
+  border: 1px solid var(--neutral-300);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px;
+  /* max-height: 150px; */
+  gap: 8px;
+  overflow: hidden;
+}
+.info-section {
+  display: flex;
+  /* justify-content: space-around; */
+  flex-direction: row;
+  gap: 8px;
+}
+.bottom-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+}
