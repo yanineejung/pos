@@ -48,7 +48,7 @@
   padding: 1px 24px;
   color: var(--neutral-100);
   font-family: NotoSansThai;
-  font-size: 18px;
+  font-size: 24px;
 }
 .secondary-btn {
   border-radius: 12px;
@@ -57,5 +57,5 @@
   height: 44px;
   padding: 1px 24px;
   font-family: NotoSansThai;
-  font-size: 18px;
+  font-size: 24px;
 }

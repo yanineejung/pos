@@ -1,9 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 // import Product from "../../public/components/molecule/Card/ProductCard";
+import Textbox from "../../public/components/molecule/Textbox/Textbox";
 import ProductTemplate from "../../public/components/template/ProductTemplate";
 import CheckoutTemplate from "../../public/components/template/CheckoutTemplate";
 import Topbar from "../../public/components/molecule/Layout/Topbar";
+
+import POSTemplate from "../../public/components/template/POSTemplate";
 const MockData = {
   success: true,
   totalProduct: 15,
@@ -170,15 +173,31 @@ const MockData = {
 };
 export default function Home() {
   // console.log(MockData.productList);
+  // const { handleProductSearch } = useCheckout();
+  // return (
+  //   <>
+  //     <Topbar />
+  //     <div className={styles["page"]}>
+  //       <div className={styles["product-section"]}>
+  //         <Textbox
+  //           placeholder="พิมพ์ชื่อ หรือ รหัสสินค้าเพื่อค้นหา"
+  //           icon={"/images/icons/search.svg"}
+  //           onChange={handleProductSearch}
+  //         />
+  //         <ProductTemplate itemList={MockData.productList} />
+  //       </div>
+  //       <div className={styles["checkout-section"]}>
+  //         <CheckoutTemplate />
+  //       </div>
+  //     </div>
+  //   </>
+  // );
   return (
     <>
       <Topbar />
       <div className={styles["page"]}>
         <div className={styles["product-section"]}>
-          <ProductTemplate itemList={MockData.productList} />
-        </div>
-        <div className={styles["checkout-section"]}>
-          <CheckoutTemplate />
+          <POSTemplate data={MockData?.productList} />
         </div>
       </div>
     </>

@@ -6,16 +6,21 @@ import styles from "./template.module.css";
 const ProductTemplate = ({ itemList }) => {
   return (
     <>
-      <Textbox
+      {/* <Textbox
         placeholder="พิมพ์ชื่อ หรือ รหัสสินค้าเพื่อค้นหา"
         icon={"/images/icons/search.svg"}
-      />
+      /> */}
 
-      <div className={styles["product-container"]}>
-        {itemList?.map((item) => (
-          <Product key={item?.no} item={item} />
-        ))}
-      </div>
+      {/* TODO: add section No result */}
+      {itemList.length > 0 ? (
+        <div className={styles["product-container"]}>
+          {itemList?.map((item) => (
+            <Product key={item?.no} item={item} />
+          ))}
+        </div>
+      ) : (
+        <div>ไม่พบผลลัพธ์</div>
+      )}
     </>
   );
 };
