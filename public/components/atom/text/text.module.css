@@ -2,9 +2,14 @@
   font-family: NotoSansThai;
   font-weight: 700;
   font-size: 16px;
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .product-id-text {
@@ -20,4 +25,24 @@
 .product-price-text {
   font-weight: 600;
   text-align: end;
+}
+
+.regular {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.heading2 {
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.heading3 {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.heading5 {
+  font-weight: 500;
+  font-size: 20px;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./card.module.css";
-import Tag from "../../atom/text/Tag/Tags";
-import Text from "../../atom/text/text";
+import Tag from "../../atom/Tag/Tags";
+import Text from "../../atom/Text/text";
 
 const Product = ({ item, onClick }) => {
   return (

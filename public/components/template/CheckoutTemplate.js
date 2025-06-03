@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import styles from "./template.module.css";
 import EditableCardItem from "../organism/EditableCardItem";
-
+import SummarySection from "../organism/SummarySection";
 const CheckoutTemplate = () => {
   const date = dayjs(Date.now());
   const formattedDate = date.format("D/M/YYYY");
@@ -24,9 +24,10 @@ const CheckoutTemplate = () => {
     <div className={styles["checkout-container"]}>
       <div className={styles["date-text"]}>
         <p>{`วันที่: ${formattedDate}`}</p>
-        <p>{`| เวลา: ${formattedDate}`}</p>
+        <p>{`| เวลา: ${formattedTime}`}</p>
       </div>
       <EditableCardItem item={item} />
+      <SummarySection excludeVat={27340.14} vat={2057.86} point={0} />
     </div>
   );
 };

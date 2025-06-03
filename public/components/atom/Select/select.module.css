@@ -1,0 +1,43 @@
+.container {
+  /* position: relative; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-self: center; */
+  margin-bottom: 8px;
+  background-color: var(--neutral-100);
+  padding: 4px;
+  border: 1px solid var(--neutral-300);
+  border-radius: 12px;
+  gap: 24px;
+  font-weight: 700;
+  min-width: 100px;
+  /* color: var(--neutral-300); */
+  font-family: NotoSansThai;
+  font-size: 14px;
+}
+/* 
+.option-container {
+  min-width: 100px;
+} */
+.container:focus {
+  border: 1.5px solid var(--green-300);
+  outline: none;
+}
+
+.label-text {
+  font-family: NotoSansThai;
+  font-size: 14px;
+}
+.stepper-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  margin-bottom: 8px;
+  background-color: var(--neutral-100);
+  padding: 4px;
+  border: 1px solid var(--neutral-300);
+  border-radius: 16px;
+  gap: 24px;
+  font-weight: 700;
+}
