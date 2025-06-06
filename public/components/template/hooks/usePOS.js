@@ -5,6 +5,7 @@ import { debounce } from "../../utils";
 
 const usePOS = ({ data }) => {
   const [result, setResult] = useState(data);
+  const [open, setOpen] = useState(false);
 
   const filterProducts = (productList, searchText) => {
     if (!searchText) return productList;
@@ -33,6 +34,8 @@ const usePOS = ({ data }) => {
     debouncedProductSearch,
     // state
     result,
+    open,
+    setOpen,
   };
 };
 

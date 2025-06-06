@@ -1,8 +1,4 @@
 .container {
-  /* position: relative; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-self: center; */
   margin-bottom: 8px;
   background-color: var(--neutral-100);
   padding: 4px;

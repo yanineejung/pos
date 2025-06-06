@@ -40,8 +40,16 @@ const SummarySection = ({ excludeVat, vat, point }) => {
         <Text text="ยอดรวมสุทธิ" type="heading5" />
         <Text text={ConvertPriceToThaiBaht(27898)} type="heading5" />
       </div>
-      <Button text="ยกเลิก" type="secondary-btn" />
-      <Button text="ชำระเงิน" type="primary-btn" />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          marginTop: "16px",
+        }}
+      >
+        <Button text="ยกเลิก" type="secondary-btn" />
+        <Button text="ชำระเงิน" type="primary-btn" />
+      </div>
     </div>
   );
 };

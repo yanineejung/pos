@@ -21,7 +21,12 @@ const Product = ({ item, onClick }) => {
       </div>
       <Text text={item?.productName} type="product-name-text" />
       <Text text={item?.productId} type="product-id-text" />
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Tag text={item?.category} />
         <Text
           text={item?.price?.toLocaleString("th-TH", {

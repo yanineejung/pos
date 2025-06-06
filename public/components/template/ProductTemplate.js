@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import Product from "../molecule/Card/ProductCard";
 import Textbox from "../molecule/Textbox/Textbox";
+import { Row, Col, Empty } from "antd";
 import styles from "./template.module.css";
 
 const ProductTemplate = ({ itemList }) => {
@@ -19,7 +21,12 @@ const ProductTemplate = ({ itemList }) => {
           ))}
         </div>
       ) : (
-        <div>ไม่พบผลลัพธ์</div>
+        <div
+          className={styles["product-container"]}
+          style={{ alignItems: "center", height: "100%" }}
+        >
+          <Empty />
+        </div>
       )}
     </>
   );

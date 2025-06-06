@@ -21,12 +21,12 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: NotoSansThai !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 * {
+  font-family: NotoSansThai !important;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -41,4 +41,13 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+@media (min-width: 992px) {
+  .ant-drawer {
+    display: none;
+  }
+}
+.ant-drawer-body {
+  justify-items: center;
 }

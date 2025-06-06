@@ -196,9 +196,9 @@ export default function Home() {
     <>
       <Topbar />
       <div className={styles["page"]}>
-        <div className={styles["product-section"]}>
-          <POSTemplate data={MockData?.productList} />
-        </div>
+        {/* <div className={styles["product-section"]}> */}
+        <POSTemplate data={MockData?.productList} />
+        {/* </div> */}
       </div>
     </>
   );

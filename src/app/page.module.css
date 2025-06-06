@@ -1,32 +1,32 @@
 .page {
   background-color: var(--green-100);
   padding: 10px;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  /* height: 100vh; */
 }
 
 @media (max-width: 768px) {
   .page {
-    display: flex;
+    /* display: flex; */
     /* justify-items: center; */
   }
   .product-section {
     /* width: 100%; */
-    width: 70vw;
+    /* width: 70vw; */
   }
   .checkout-section {
     /* width: 100%; */
-    width: 30vw;
+    /* width: 30vw; */
   }
 }
 @media (min-width: 769px) {
   .page {
-    display: flex;
+    /* display: flex; */
     /* justify-items: center; */
   }
   .product-section {
   }
   .checkout-section {
-    min-width: 700px;
+    /* min-width: 700px; */
   }
 }
