@@ -1,16 +1,31 @@
+"use client";
+import { useState } from "react";
 import Text from "../atom/Text/text";
-import Select from "../atom/Select/Select";
+// import Select from "../atom/Select/Select";
 import StepperButton from "../molecule/Button/StepperButton";
 import IconButton from "../molecule/Button/IconButton";
 // import Textbox from "../molecule/Textbox/Textbox";
-import Input from "../atom/Input/Input";
+// import Input from "../atom/Input/Input";
+import { ClockCircleOutlined } from "@ant-design/icons";
+import { Tag, Select, InputNumber } from "antd";
 import styles from "./organism.module.css";
 
-const EditableCardItem = ({ item }) => {
+const EditableCardItem = ({
+  item,
+  onUpdate,
+  onDelete,
+  onEdit,
+  isDelayed,
+  normalQyt,
+  delayedQyt,
+  onDiscount,
+}) => {
   const dcOptions = [
     { label: "บาท(฿)", value: "baht" },
     { label: "เปอร์เซ็นต์(%)", value: "percent" },
   ];
+
+  const [dcType, setDcType] = useState("baht");
   return (
     <div className={styles["editable-item-container"]}>
       <div className={styles["info-section"]}>
@@ -27,9 +42,25 @@ const EditableCardItem = ({ item }) => {
           <Text text={item?.productId} type="product-id-text" />
         </div>
         <div className={styles["action-wrapper"]}>
-          <IconButton icon="/images/icons/delivery-truck-speed.svg" />
-          <IconButton icon="/images/icons/edit.svg" />
-          <IconButton icon="/images/icons/delete.svg" />
+          {isDelayed && (
+            <Tag
+              icon={<ClockCircleOutlined />}
+              color="orange"
+              style={{ margin: "0px", padding: "2px 8px" }}
+            >
+              ส่งตามหลัง
+            </Tag>
+          )}
+          {!isDelayed && (
+            <IconButton
+              icon="/images/icons/edit.svg"
+              onClick={() => onEdit(item)}
+            />
+          )}
+          <IconButton
+            icon="/images/icons/delete.svg"
+            onClick={() => onDelete(item, isDelayed)}
+          />
         </div>
       </div>
       <div className={styles["bottom-section"]}>
@@ -43,11 +74,15 @@ const EditableCardItem = ({ item }) => {
           type="product-price-text"
           style={{ textAlign: "left" }}
         />
-        <StepperButton value={item?.number} />
+        <StepperButton
+          value={isDelayed ? item?.delayQuantity : item?.quantity}
+          onDecrement={() => onUpdate(item, "decrease")}
+          onIncrement={() => onUpdate(item, "increase")}
+        />
         <div className={styles["discount-wrapper"]}>
-          <Text text="ส่วนลด" style={{ marginBlock: "10px" }} />
-          <Select options={dcOptions} />
-          <Input />
+          <Text text="ส่วนลด" style={{ marginBlock: "4px" }} />
+          <Select options={dcOptions} onChange={(e) => setDcType(e)} />
+          <InputNumber min={0} onChange={(e) => onDiscount(item, dcType, e)} />
         </div>
       </div>
     </div>

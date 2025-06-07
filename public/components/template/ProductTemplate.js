@@ -5,7 +5,7 @@ import Textbox from "../molecule/Textbox/Textbox";
 import { Row, Col, Empty } from "antd";
 import styles from "./template.module.css";
 
-const ProductTemplate = ({ itemList }) => {
+const ProductTemplate = ({ itemList, onClick }) => {
   return (
     <>
       {/* <Textbox
@@ -17,7 +17,11 @@ const ProductTemplate = ({ itemList }) => {
       {itemList.length > 0 ? (
         <div className={styles["product-container"]}>
           {itemList?.map((item) => (
-            <Product key={item?.no} item={item} />
+            <Product
+              key={item?.no}
+              item={item}
+              onClick={(item) => onClick(item, "increase")}
+            />
           ))}
         </div>
       ) : (

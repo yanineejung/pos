@@ -12,7 +12,7 @@ const Product = ({ item, onClick }) => {
         }}
         className={styles["image-container"]}
       >
-        <div className={styles["add-cart-btn"]} onClick={onClick}>
+        <div className={styles["add-cart-btn"]} onClick={() => onClick(item)}>
           <img
             className={styles["add-cart-icon"]}
             src={"/images/icons/add-shopping-cart.svg"}

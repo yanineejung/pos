@@ -53,9 +53,8 @@
 
 .action-wrapper {
   display: flex;
-  align-items: flex-end;
   flex-direction: column;
-  row-gap: 4px;
+  gap: 4px;
 }
 
 .summary-container {

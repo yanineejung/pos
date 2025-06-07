@@ -1,9 +1,9 @@
 import styles from "./select.module.css";
-const Select = ({ labelText, options }) => {
+const Select = ({ labelText, options, onChange }) => {
   return (
     <>
       {labelText ?? <p className={styles["label-text"]}>{labelText}</p>}
-      <select className={styles["container"]}>
+      <select className={styles["container"]} onChange={onChange}>
         {options?.map((item) => {
           return (
             <option
