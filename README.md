@@ -34,4 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# pos
+
+## POS
+
+A modern Point of Sale (POS) system built with Next.js. This project provides a responsive interface for managing sales, products, and transactions. It features real-time updates, user authentication, and integration with backend APIs for inventory and order management. Designed for ease of use and scalability, this POS solution is suitable for retail and hospitality businesses looking for a web-based sales platform.
+
+POS display
+
+![alt text](image.png)
+
+Mobile display
+
+![alt text](image-1.png)
