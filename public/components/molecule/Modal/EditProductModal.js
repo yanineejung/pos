@@ -1,13 +1,33 @@
 "use client";
 import { useState, useEffect } from "react";
-import Text from "../../atom/Text/text";
-import IconButton from "../Button/IconButton";
-import StepperButton from "../Button/StepperButton";
+
 import { Modal } from "antd";
+import Text from "../../atom/Text/text";
+import StepperButton from "../Button/StepperButton";
+
 import styles from "./modal.module.css";
+
+/**
+ * EditProductModal component allows editing the delayed quantity of a product in a modal dialog.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {Object} props.item - The product item to edit.
+ * @param {string} [props.item.productId] - The product's unique identifier.
+ * @param {string} [props.item.productName] - The product's name.
+ * @param {string} [props.item.imageUrl] - The URL of the product's image.
+ * @param {number} [props.item.price] - The price of the product.
+ * @param {number} [props.item.quantity] - The available quantity of the product.
+ * @param {number} [props.item.delayQuantity] - The initial delayed quantity.
+ * @param {boolean} props.open - Whether the modal is open.
+ * @param {Function} props.onClose - Callback when the modal is closed.
+ * @param {Function} props.onOk - Callback when the modal is confirmed. Receives the item and the delayed quantity as arguments.
+ *
+ * @returns {JSX.Element} The rendered EditProductModal component.
+ */
 const EditProductModal = ({ item, open, onClose, onOk }) => {
   const [delayedQyt, setDelayedQyt] = useState(item?.delayQuantity || 0);
-  console.log("@ Edit modal ", delayedQyt);
+
   // Reset delayedQyt whenever the modal opens
   useEffect(() => {
     if (open) {
@@ -15,6 +35,7 @@ const EditProductModal = ({ item, open, onClose, onOk }) => {
     }
   }, [open, item]);
   const maxQty = item?.quantity ?? 0;
+
   return (
     <Modal
       title="ต้องการส่งตามหลัง"
@@ -60,8 +81,6 @@ const EditProductModal = ({ item, open, onClose, onOk }) => {
           />
           <StepperButton
             value={delayedQyt}
-            // onDecrement={() => console.log("decrease")}
-            // onIncrement={() => console.log("increase")}
             onDecrement={() => setDelayedQyt(Math.max(0, delayedQyt - 1))}
             onIncrement={() => setDelayedQyt(Math.min(maxQty, delayedQyt + 1))}
           />

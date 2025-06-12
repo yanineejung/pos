@@ -1,14 +1,24 @@
 "use client";
-import Topbar from "../molecule/Layout/Topbar";
-import Textbox from "../molecule/Textbox/Textbox";
+import { FloatButton, Drawer, Space, Button, Col, Input } from "antd";
+
+import usePOS from "./hooks/usePOS";
+
 import EditProductModal from "../molecule/Modal/EditProductModal";
 import ProductTemplate from "./ProductTemplate";
 import CheckoutTemplate from "./CheckoutTemplate";
-import { FloatButton, Drawer, Space, Button, Row, Col } from "antd";
 import styles from "./template.module.css";
-import usePOS from "./hooks/usePOS";
+const { Search } = Input;
+
+/**
+ * POS (Point of Sale) Template component.
+ * Renders the main POS interface including product search, product list, cart, checkout, and modals.
+ *
+ * @component
+ * @param {Object} props
+ * @param {Object} props.data - The initial data for the POS system.
+ * @returns {JSX.Element} The rendered POS template.
+ */
 export default function POSTemplate({ data }) {
-  // console.log(MockData.productList);
   const {
     debouncedProductSearch,
     setOpen,
@@ -34,24 +44,24 @@ export default function POSTemplate({ data }) {
       <div className={styles["container"]}>
         <Col xs={24} sm={24} md={24} lg={16}>
           <div className={styles["main"]}>
-            <Textbox
+            <Search
               placeholder="พิมพ์ชื่อ หรือ รหัสสินค้าเพื่อค้นหา"
-              icon="/images/icons/search.svg"
+              allowClear
               onChange={(e) => debouncedProductSearch(e)}
+              onSearch={(e) => debouncedProductSearch(e)}
+              style={{ marginBottom: "12px" }}
             />
             <ProductTemplate itemList={result} onClick={updateCartQuantity} />
           </div>
         </Col>
         <Col xs={0} sm={0} md={0} lg={8}>
-          <div className={styles["checkout"]}>
-            <CheckoutTemplate
-              cart={cart}
-              updateCartQuantity={updateCartQuantity}
-              onDelete={deleteProduct}
-              onEdit={editProduct}
-              onDiscount={debouncedDiscount}
-            />
-          </div>
+          <CheckoutTemplate
+            cart={cart}
+            updateCartQuantity={updateCartQuantity}
+            onDelete={deleteProduct}
+            onEdit={editProduct}
+            onDiscount={debouncedDiscount}
+          />
         </Col>
         <FloatButton
           shape="circle"

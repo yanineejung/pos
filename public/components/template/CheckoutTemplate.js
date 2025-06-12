@@ -4,6 +4,20 @@ import dayjs from "dayjs";
 import styles from "./template.module.css";
 import EditableCardItem from "../organism/EditableCardItem";
 import SummarySection from "../organism/SummarySection";
+
+/**
+ * CheckoutTemplate component displays the checkout page, including the list of cart items,
+ * date/time, and a summary section with calculated totals, discounts, and VAT.
+ *
+ * @component
+ * @param {Object[]} cart - Array of cart item objects.
+ * @param {function} updateCartQuantity - Callback to update the quantity of a cart item.
+ * @param {function} onDelete - Callback to delete a cart item.
+ * @param {function} onEdit - Callback to edit a cart item.
+ * @param {function} onDiscount - Callback to apply a discount to a cart item.
+ *
+ * @returns {JSX.Element} The rendered checkout template.
+ */
 const CheckoutTemplate = ({
   cart,
   updateCartQuantity,
@@ -21,53 +35,50 @@ const CheckoutTemplate = ({
     costExclVAT: 0,
     vat: 0,
     totalCost: 0,
+    dcTotalType: "baht",
+    dcTotalAmount: 0,
   });
 
-  // const item = {
-  //   no: 2,
-  //   productId: "G099191-TOP01",
-  //   productName:
-  //     "โต๊ะปรับระดับ รุ่น Health-Max Controller ขนาด 120*60 cm. | Ergonomic Adjustable Desk",
-  //   category: "table",
-  //   price: 17999,
-  //   imageUrl:
-  //     "https://www.bewellstyle.com/wp-content/uploads/2023/05/20230417_%E0%B8%9B%E0%B8%81_MKP_TBS04_03.jpg",
-  //   stock: 10,
-  //   number: 2,
-  //   dcType: "baht",
-  //   dcAmount: 5,
-  // };
   const calculateCartTotals = (cartArray) => {
     let totalQuantity = 0;
     let subtotal = 0;
     let totalDiscount = 0;
 
-    cartArray.forEach((item) => {
+    for (const item of cartArray) {
       const unitPrice = item.price ?? 0;
-      const quantity = (item.quantity ?? 0) + (item.delayQuantity ?? 0);
-      const itemSubtotal = unitPrice * quantity;
+      const quantity = item.quantity ?? 0;
+      const delayedQuantity = item.delayQuantity ?? 0;
 
-      let discount = 0;
-      if (item.dcType === "baht") {
-        discount = (item.dcAmount ?? 0) * quantity;
-      } else if (item.dcType === "percent") {
-        discount = (itemSubtotal * (item.dcAmount ?? 0)) / 100;
+      const itemSubtotal = unitPrice * quantity;
+      const itemDelayedSubtotal = unitPrice * delayedQuantity;
+
+      subtotal += itemSubtotal + itemDelayedSubtotal;
+      totalQuantity += quantity + delayedQuantity;
+
+      // Calculate discount for immediate items
+      if (item.dcType) {
+        const amount = item.dcAmount ?? 0;
+        totalDiscount +=
+          item.dcType === "baht" ? amount : itemSubtotal * (amount / 100);
       }
 
-      totalQuantity += quantity;
-      subtotal += itemSubtotal;
-      totalDiscount += discount;
-    });
+      // Calculate discount for delayed items
+      if (item.dcTypeDelay) {
+        const amountDelay = item.dcAmountDelay ?? 0;
+        totalDiscount +=
+          item.dcTypeDelay === "baht"
+            ? amountDelay
+            : itemDelayedSubtotal * (amountDelay / 100);
+      }
+    }
 
-    // const costExclVAT = subtotal - totalDiscount;
-    // const vat = costExclVAT * 0.07;
-    // const totalCost = costExclVAT + vat;
     const costExclVAT = subtotal * 0.93;
     const vat = subtotal - costExclVAT;
     const totalCost = subtotal - totalDiscount;
+
     return {
       totalQuantity,
-      subtotal, // before discount
+      subtotal, // Before discount
       totalDiscount,
       costExclVAT,
       vat,
@@ -75,53 +86,84 @@ const CheckoutTemplate = ({
     };
   };
 
+  const calculateTotals = (totals) => {
+    if (!totals) return null;
+
+    let extraDiscount = 0;
+
+    if (totals.dcTotalType) {
+      const amount = totals.dcTotalAmount ?? 0;
+
+      extraDiscount =
+        totals.dcTotalType === "baht"
+          ? amount
+          : totals.totalCost * (amount / 100);
+    }
+
+    const finalTotalCost = totals.totalCost - extraDiscount;
+
+    return {
+      ...totals,
+      dcTotalAmount: extraDiscount,
+      totalCost: finalTotalCost,
+    };
+  };
+
   useEffect(() => {
     const totals = calculateCartTotals(cart);
     setCartTotals(totals);
+    // const finalTotals = calculateTotals(totals);
+    // setCartTotals(finalTotals ?? totals); // Use finalTotals if valid
   }, [cart]);
-  return (
-    <div className={styles["checkout-container"]}>
-      <div className={styles["date-text"]}>
-        <p>{`วันที่: ${formattedDate}`}</p>
-        <p>{`| เวลา: ${formattedTime}`}</p>
-      </div>
-      {cart?.length > 0 &&
-        cart?.map((item) => {
-          const normalQty = item.quantity || 0;
-          const delayQty = item.delayQuantity || 0;
-          return (
-            <div>
-              {normalQty > 0 && (
-                <EditableCardItem
-                  item={item}
-                  onUpdate={updateCartQuantity}
-                  onDelete={onDelete}
-                  onEdit={() => onEdit(item)}
-                  isDelayed={false}
-                  onDiscount={onDiscount}
-                />
-              )}
-              {delayQty > 0 && (
-                <EditableCardItem
-                  item={item}
-                  onUpdate={updateCartQuantity}
-                  onDelete={onDelete}
-                  onEdit={() => onEdit(item)}
-                  isDelayed={true}
-                  onDiscount={onDiscount}
-                />
-              )}
-            </div>
-          );
-        })}
 
-      <SummarySection
-        cartTotals={cartTotals}
-        excludeVat={cartTotals?.subtotal}
-        vat={cartTotals?.vat}
-        point={0}
-      />
-    </div>
+  return (
+    <>
+      <div className={styles["checkout-container"]}>
+        <div className={styles["product-list"]}>
+          <div className={styles["date-text"]}>
+            <p>{`วันที่: ${formattedDate}`}</p>
+            <p>{`| เวลา: ${formattedTime}`}</p>
+          </div>
+          {cart?.length > 0 &&
+            cart?.map((item) => {
+              const normalQty = item.quantity || 0;
+              const delayQty = item.delayQuantity || 0;
+              return (
+                <div key={item?.productId}>
+                  {normalQty > 0 && (
+                    <EditableCardItem
+                      item={item}
+                      onUpdate={updateCartQuantity}
+                      onDelete={onDelete}
+                      onEdit={() => onEdit(item)}
+                      isDelayed={false}
+                      onDiscount={onDiscount}
+                    />
+                  )}
+                  {delayQty > 0 && (
+                    <EditableCardItem
+                      item={item}
+                      onUpdate={updateCartQuantity}
+                      onDelete={onDelete}
+                      onEdit={() => onEdit(item)}
+                      isDelayed={true}
+                      onDiscount={onDiscount}
+                    />
+                  )}
+                </div>
+              );
+            })}
+        </div>
+        <div className={styles["summary-container"]}>
+          <SummarySection
+            cartTotals={cartTotals}
+            excludeVat={cartTotals?.subtotal}
+            vat={cartTotals?.vat}
+            point={0}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 export default CheckoutTemplate;

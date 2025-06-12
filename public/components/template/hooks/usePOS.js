@@ -1,8 +1,32 @@
 "use client";
-import React from "react";
 import { useState, useMemo } from "react";
-import { debounce } from "../../utils";
 import { message } from "antd";
+import { debounce } from "../../utils";
+
+/**
+ * Custom React hook for managing Point of Sale (POS) logic, including product search, cart management,
+ * discount application, and delayed product handling.
+ *
+ * @param {Object} params
+ * @param {Array<Object>} params.data - The initial list of products available for sale.
+ * @returns {Object} An object containing state variables and functions for POS operations:
+ *   @property {Function} debouncedProductSearch - Debounced handler for product search input.
+ *   @property {Function} setOpen - Setter for the open state (e.g., for modals or drawers).
+ *   @property {Function} updateCartQuantity - Updates the quantity of a product in the cart.
+ *   @property {Function} deleteProduct - Removes a product or its delayed/normal quantity from the cart.
+ *   @property {Function} setModalOpen - Setter for the modal open state.
+ *   @property {Function} setDelayedProduct - Setter for the currently selected delayed product.
+ *   @property {Function} editProduct - Opens the modal to edit a product's delayed quantity.
+ *   @property {Function} updateDelayedProduct - Updates the delayed quantity of a product in the cart.
+ *   @property {Function} debouncedDiscount - Debounced handler for applying discounts to products.
+ *   @property {Array<Object>} result - The current filtered list of products (search results).
+ *   @property {boolean} open - State indicating if a modal or drawer is open.
+ *   @property {Array<Object>} cart - The current list of products in the cart.
+ *   @property {React.ReactNode} contextHolder - Context holder for message API (e.g., notifications).
+ *   @property {boolean} modalOpen - State indicating if the delayed product modal is open.
+ *   @property {Object} delayedProduct - The currently selected product for delayed handling.
+ *   @property {Array<Object>} discount - The current list of discounts applied.
+ */
 const usePOS = ({ data }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [result, setResult] = useState(data);
@@ -10,6 +34,7 @@ const usePOS = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [delayedProduct, setDelayedProduct] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
+  const [discount, setDiscount] = useState([]);
 
   const addSuccess = () => {
     console.log("addSuccess");
@@ -46,32 +71,13 @@ const usePOS = ({ data }) => {
     );
   };
   const handleProductSearch = async (e) => {
-    console.log(e.target.value);
-    let res = await filterProducts(data, e.target.value);
+    let res = await filterProducts(data, e?.target?.value);
     setResult(res);
   };
 
   const debouncedProductSearch = useMemo(() => {
     return debounce(handleProductSearch, 500);
   }, []);
-
-  // const addToCart = (product) => {
-  //   const cartCopy = [...cart]; // assuming cart is from state
-  //   const existingItemIndex = cartCopy.findIndex(
-  //     (item) => item.productId === product.productId
-  //   );
-  //   if (existingItemIndex !== -1) {
-  //     cartCopy[existingItemIndex].quantity += 1;
-  //   } else {
-  //     cartCopy.push({
-  //       ...product,
-  //       quantity: 1,
-  //       readyToDeliver: 1,
-  //     });
-  //   }
-  //   setCart(cartCopy);
-  //   success();
-  // };
 
   const updateCartQuantity = (product, action) => {
     let productId = product?.productId;
@@ -113,22 +119,6 @@ const usePOS = ({ data }) => {
     // console.log(cartCopy);
   };
 
-  // const deleteProduct = (product) => {
-  //   const productId = product?.productId;
-  //   if (!productId) return;
-
-  //   const cartCopy = [...cart];
-  //   const index = cartCopy.findIndex((item) => item.productId === productId);
-
-  //   if (index !== -1) {
-  //     cartCopy.splice(index, 1); // remove item
-  //     setCart(cartCopy); // update state
-  //     removeSuccess?.(); // show toast/snackbar if needed
-  //   } else {
-  //     console.warn("Product not found in cart:", productId);
-  //   }
-  // };
-
   const deleteProduct = (product, isDelayed) => {
     const productId = product?.productId;
     if (!productId) return;
@@ -143,11 +133,15 @@ const usePOS = ({ data }) => {
         // Remove delayed quantity
         if (item.delayQuantity && item.delayQuantity > 0) {
           item.delayQuantity = 0;
+          delete item.dcAmountDelay;
+          delete item.dcTypeDelay;
         }
       } else {
         // Remove normal quantity
         if (item.quantity && item.quantity > 0) {
           item.quantity = 0;
+          delete item.dcAmount;
+          delete item.dcType;
         }
       }
 
@@ -156,14 +150,6 @@ const usePOS = ({ data }) => {
       if (remainingQty === 0) {
         cartCopy.splice(index, 1);
       }
-
-      console.log(
-        "isDelayed, delayQuantity,quantity, remainingQty ",
-        isDelayed,
-        item.delayQuantity,
-        item.quantity,
-        remainingQty
-      );
       setCart(cartCopy);
       removeSuccess?.(); // Optional success feedback
     } else {
@@ -201,20 +187,28 @@ const usePOS = ({ data }) => {
     setModalOpen(false);
   };
 
-  const onDiscount = (product, dcType, dcAmount) => {
-    console.log(" discount ", product, dcType, dcAmount);
+  const onDiscount = (product, dcType, dcAmount, isDelayed) => {
     setCart((prevCart) =>
       prevCart.map((item) => {
         if (item.productId === product.productId) {
-          return {
-            ...item,
-            dcType,
-            dcAmount,
-          };
+          if (isDelayed) {
+            return {
+              ...item,
+              dcTypeDelay: dcType,
+              dcAmountDelay: dcAmount,
+            };
+          } else {
+            return {
+              ...item,
+              dcType,
+              dcAmount,
+            };
+          }
         }
         return item;
       })
     );
+    console.log(" product ", product);
   };
 
   const debouncedDiscount = useMemo(() => {
@@ -239,6 +233,7 @@ const usePOS = ({ data }) => {
     contextHolder,
     modalOpen,
     delayedProduct,
+    discount,
   };
 };
 
