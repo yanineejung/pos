@@ -5,29 +5,3 @@
   overflow-y: scroll;
   /* height: 100vh; */
 }
-
-@media (max-width: 768px) {
-  .page {
-    /* display: flex; */
-    /* justify-items: center; */
-  }
-  .product-section {
-    /* width: 100%; */
-    /* width: 70vw; */
-  }
-  .checkout-section {
-    /* width: 100%; */
-    /* width: 30vw; */
-  }
-}
-@media (min-width: 769px) {
-  .page {
-    /* display: flex; */
-    /* justify-items: center; */
-  }
-  .product-section {
-  }
-  .checkout-section {
-    /* min-width: 700px; */
-  }
-}
